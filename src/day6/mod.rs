@@ -162,19 +162,18 @@ pub fn part_2() {
         hash_positions.insert((*vx, *vy), '#');
 
         // resimulate the guard's movement
-        let mut temp_visited: HashSet<(usize, usize)> = HashSet::new();
+        let mut temp_visited_states: HashSet<(usize, usize, char)> = HashSet::new();
         let mut temp_x = start_x;
         let mut temp_y = start_y;
         let mut temp_direction = grid[start_x][start_y];
-        temp_visited.insert((temp_x, temp_y));
+        temp_visited_states.insert((temp_x, temp_y, temp_direction));
 
         let mut loop_detected = false;
-        let mut loop_start = None;
-        let mut iteration_count = 0;
 
         loop {
             let (new_x, new_y, new_direction) =
                 guard_move(temp_x, temp_y, temp_direction, &hash_positions);
+
             if new_x >= grid.len() || new_y >= grid[0].len() {
                 break;
             }
@@ -183,20 +182,7 @@ pub fn part_2() {
             temp_y = new_y;
             temp_direction = new_direction;
 
-            if loop_start == Some((temp_x, temp_y, temp_direction)) {
-                loop_detected = true;
-                break;
-            }
-
-            if loop_start.is_none() && temp_visited.contains(&(temp_x, temp_y)) {
-                loop_start = Some((temp_x, temp_y, temp_direction));
-            }
-
-            temp_visited.insert((temp_x, temp_y));
-
-            iteration_count += 1;
-            if iteration_count > visited_positions.len() * 2 {
-                // :>>>>>>
+            if !temp_visited_states.insert((temp_x, temp_y, temp_direction)) {
                 loop_detected = true;
                 break;
             }
