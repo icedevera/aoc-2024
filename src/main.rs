@@ -1,3 +1,5 @@
+use std::time::Instant;
+
 mod day1;
 mod day10;
 mod day11;
@@ -11,6 +13,8 @@ mod day8;
 mod day9;
 
 fn main() {
+    let start = Instant::now();
+
     day1::part_1();
     day1::part_2();
     day2::part_1();
@@ -33,4 +37,7 @@ fn main() {
     day10::part_2();
     day11::part_1();
     day11::part_2_optimized();
+
+    let duration = start.elapsed();
+    println!("Time elapsed: {:?}", duration);
 }
