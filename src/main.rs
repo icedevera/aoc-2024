@@ -5,6 +5,7 @@ mod day10;
 mod day11;
 mod day12;
 mod day13;
+mod day14;
 mod day2;
 mod day3;
 mod day4;
@@ -43,6 +44,8 @@ fn main() {
     day12::part_2();
     day13::part_1();
     day13::part_2();
+    day14::part_1();
+    day14::part_2();
 
     let duration = start.elapsed();
     println!("Time elapsed: {:?}", duration);
